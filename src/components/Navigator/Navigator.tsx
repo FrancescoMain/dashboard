@@ -18,6 +18,7 @@ import TimerIcon from "@mui/icons-material/Timer";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PhonelinkSetupIcon from "@mui/icons-material/PhonelinkSetup";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   {
@@ -26,23 +27,25 @@ const categories = [
       {
         id: "Authentication",
         icon: <PeopleIcon />,
+        path: "/auth",
       },
-      { id: "Database", icon: <DnsRoundedIcon /> },
-      { id: "Storage", icon: <PermMediaOutlinedIcon /> },
-      { id: "Hosting", icon: <PublicIcon /> },
-      { id: "Functions", icon: <SettingsEthernetIcon /> },
+      { id: "Database", icon: <DnsRoundedIcon />, path: "/database" },
+      { id: "Storage", icon: <PermMediaOutlinedIcon />, path: "/storage" },
+      { id: "Hosting", icon: <PublicIcon />, path: "/hosting" },
+      { id: "Functions", icon: <SettingsEthernetIcon />, path: "/functions" },
       {
         id: "Machine learning",
         icon: <SettingsInputComponentIcon />,
+        path: "/machineLearning",
       },
     ],
   },
   {
     id: "Quality",
     children: [
-      { id: "Analytics", icon: <SettingsIcon /> },
-      { id: "Performance", icon: <TimerIcon /> },
-      { id: "Test Lab", icon: <PhonelinkSetupIcon /> },
+      { id: "Analytics", icon: <SettingsIcon />, path: "/analytics" },
+      { id: "Performance", icon: <TimerIcon />, path: "/performance" },
+      { id: "Test Lab", icon: <PhonelinkSetupIcon />, path: "/testLab" },
     ],
   },
 ];
@@ -69,6 +72,8 @@ const Navigator = (props: DrawerProps) => {
     setActiveItem(id);
   };
 
+  const navigate = useNavigate();
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -88,8 +93,12 @@ const Navigator = (props: DrawerProps) => {
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: "#fff" }}>{id}</ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon }) => (
-              <ListItem disablePadding key={childId}>
+            {children.map(({ id: childId, icon, path }) => (
+              <ListItem
+                onClick={() => navigate(path)}
+                disablePadding
+                key={childId}
+              >
                 <ListItemButton
                   onClick={() => handleActive(childId)}
                   sx={{

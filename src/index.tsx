@@ -5,6 +5,13 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Autentication from "./components/Authentication/Autentication";
+import Database from "./components/Database/Database";
+import Hosting from "./components/Hosting/Hosting";
+import Functions from "./components/Functions/Functions";
+import MachineLearning from "./components/MachineLearning/MachineLearning";
+import Analytics from "./components/Analytics/Analytics";
+import Performance from "./components/Performance/Performance";
+import TestLab from "./components/TestLab/TestLab";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +21,34 @@ const router = createBrowserRouter([
       {
         path: "/auth",
         element: <Autentication />,
+      },
+      {
+        path: "/database",
+        element: <Database />,
+      },
+      {
+        path: "/hosting",
+        element: <Hosting />,
+      },
+      {
+        path: "/functions",
+        element: <Functions />,
+      },
+      {
+        path: "/machineLearning",
+        element: <MachineLearning />,
+      },
+      {
+        path: "/analytics",
+        element: <Analytics />,
+      },
+      {
+        path: "/performance",
+        element: <Performance />,
+      },
+      {
+        path: "/testLab",
+        element: <TestLab />,
       },
     ],
   },
