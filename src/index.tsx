@@ -16,6 +16,7 @@ import Storage from "./components/Storage/Storage";
 import Projects from "./components/Projects/Projects";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import AddProject from "./components/Projects/Pages/AddProject";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/projects",
         element: <Projects />,
+      },
+      {
+        path: "/projects/add",
+        element: <AddProject />,
       },
       {
         path: "/hosting",

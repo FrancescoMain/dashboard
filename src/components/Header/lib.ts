@@ -13,11 +13,11 @@ export const menu = [
     title: "Projects",
     tabs:[{
         name: "Project List",
-        path: "/prohects"
+        path: "/projects"
     },
     {
         name: "New Project",
-        path: "/prohects/new"
+        path: "/projects/add"
     },]
 }
 ]
