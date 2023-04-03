@@ -14,20 +14,24 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../redux/store";
+import { menu } from "./lib";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
 interface HeaderProps {
   onDrawerToggle: () => void;
+  Title: string;
 }
 
-const Header = (props: HeaderProps) => {
-  const { onDrawerToggle } = props;
+const Header = ({ onDrawerToggle, Title }: HeaderProps) => {
   const [tabValue, setTabValue] = useState(0);
   const navigate = useNavigate();
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
+  const header = useAppSelector((state) => state.header);
+
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -87,7 +91,7 @@ const Header = (props: HeaderProps) => {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Authentication
+                {header.title}
               </Typography>
             </Grid>
             <Grid item>
@@ -117,13 +121,18 @@ const Header = (props: HeaderProps) => {
         sx={{ zIndex: 0 }}
       >
         <Tabs value={tabValue} onChange={handleTabChange} textColor="inherit">
-          <Tab label="Users" />
-          <Tab
-            onClick={() => navigate("auth/register")}
-            label="Sign-in method"
-          />
-          <Tab label="Templates" />
-          <Tab label="Usage" />
+          {menu.map((tab) =>
+            header.title === tab.title
+              ? tab.tabs.map((singleTab) => (
+                  <Tab
+                    label={singleTab.name}
+                    onClick={() => {
+                      navigate(singleTab.path);
+                    }}
+                  ></Tab>
+                ))
+              : ""
+          )}
         </Tabs>
       </AppBar>
     </React.Fragment>
