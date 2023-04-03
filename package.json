@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@hookform/resolvers": "^3.0.0",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.15",
     "@testing-library/jest-dom": "^5.16.5",
@@ -19,8 +20,10 @@
     "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "styled-components": "^5.3.9",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
+    "yup": "^1.0.2",
     "zod": "^3.21.4"
   },
   "scripts": {
@@ -46,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.26"
   }
 }
