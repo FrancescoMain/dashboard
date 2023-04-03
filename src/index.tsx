@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Autentication from "./components/Authentication/Autentication";
+import UserForm from "./components/Authentication/UserForm";
+import Authentication from "./components/Authentication/Authentication";
 
 const router = createBrowserRouter([
   {
@@ -13,8 +14,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/auth",
-        element: <Autentication />,
+        element: <Authentication/>
       },
+      {
+        path: "/auth/register",
+        element: <UserForm/>
+      }
     ],
   },
 ]);
