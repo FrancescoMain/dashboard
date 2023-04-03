@@ -13,6 +13,7 @@ import Performance from "./components/Performance/Performance";
 import TestLab from "./components/TestLab/TestLab";
 import Authentication from "./components/Authentication/Authentication";
 import UserForm from "./components/Authentication/UserForm";
+import Storage from "./components/Storage/Storage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/hosting",
         element: <Hosting />,
+      },
+      {
+        path: "/storage",
+        element: <Storage />,
       },
       {
         path: "/functions",
