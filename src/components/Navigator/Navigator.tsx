@@ -17,6 +17,7 @@ import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputCompone
 import TimerIcon from "@mui/icons-material/Timer";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PhonelinkSetupIcon from "@mui/icons-material/PhonelinkSetup";
+import { useState } from "react";
 
 const categories = [
   {
@@ -25,7 +26,6 @@ const categories = [
       {
         id: "Authentication",
         icon: <PeopleIcon />,
-        active: true,
       },
       { id: "Database", icon: <DnsRoundedIcon /> },
       { id: "Storage", icon: <PermMediaOutlinedIcon /> },
@@ -62,7 +62,12 @@ const itemCategory = {
   px: 3,
 };
 const Navigator = (props: DrawerProps) => {
+  const [activeItem, setActiveItem] = useState("");
   const { ...other } = props;
+
+  const handleActive = (id: string) => {
+    setActiveItem(id);
+  };
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -83,9 +88,19 @@ const Navigator = (props: DrawerProps) => {
             <ListItem sx={{ py: 2, px: 3 }}>
               <ListItemText sx={{ color: "#fff" }}>{id}</ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
+            {children.map(({ id: childId, icon }) => (
               <ListItem disablePadding key={childId}>
-                <ListItemButton selected={active} sx={item}>
+                <ListItemButton
+                  onClick={() => handleActive(childId)}
+                  sx={{
+                    ...item,
+                    bgcolor:
+                      activeItem === childId
+                        ? "rgba(255, 255, 255, 0.08)"
+                        : "transparent",
+                  }}
+                  selected={activeItem === childId}
+                >
                   <ListItemIcon>{icon}</ListItemIcon>
                   <ListItemText>{childId}</ListItemText>
                 </ListItemButton>
