@@ -12,7 +12,7 @@ import Tabs from "@mui/material/Tabs";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import React from "react";
+import React, { useState } from "react";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -22,7 +22,10 @@ interface HeaderProps {
 
 const Header = (props: HeaderProps) => {
   const { onDrawerToggle } = props;
-
+  const [tabValue, setTabValue] = useState(0);
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -111,7 +114,7 @@ const Header = (props: HeaderProps) => {
         elevation={0}
         sx={{ zIndex: 0 }}
       >
-        <Tabs value={0} textColor="inherit">
+        <Tabs value={tabValue} onChange={handleTabChange} textColor="inherit">
           <Tab label="Users" />
           <Tab label="Sign-in method" />
           <Tab label="Templates" />
