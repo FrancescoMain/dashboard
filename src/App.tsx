@@ -6,8 +6,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Navigator from "./components/Navigator/Navigator";
-import Content from "./components/Content/Content";
 import Header from "./components/Header/Header";
+import { Outlet } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -201,7 +201,7 @@ function App() {
             component="main"
             sx={{ flex: 1, py: 6, px: 4, bgcolor: "#eaeff1" }}
           >
-            <Content />
+            <Outlet />
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: "#eaeff1" }}>
             <Copyright />

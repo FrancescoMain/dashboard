@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-const Content = () => {
+const Autentication = () => {
   return (
     <Paper sx={{ maxWidth: 936, margin: "auto", overflow: "hidden" }}>
       <AppBar
@@ -55,4 +55,4 @@ const Content = () => {
     </Paper>
   );
 };
-export default Content;
+export default Autentication;
