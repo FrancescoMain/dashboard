@@ -116,7 +116,10 @@ const Header = (props: HeaderProps) => {
       >
         <Tabs value={tabValue} onChange={handleTabChange} textColor="inherit">
           <Tab label="Users" />
-          <Tab label="Sign-in method" />
+          <Tab
+            onClick={() => navigate("auth/register")}
+            label="Sign-in method"
+          />
           <Tab label="Templates" />
           <Tab label="Usage" />
         </Tabs>
