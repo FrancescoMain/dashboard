@@ -13,6 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -23,6 +24,7 @@ interface HeaderProps {
 const Header = (props: HeaderProps) => {
   const { onDrawerToggle } = props;
   const [tabValue, setTabValue] = useState(0);
+  const navigate = useNavigate();
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
