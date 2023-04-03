@@ -13,6 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { useNavigate } from "react-router";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -22,6 +23,7 @@ interface HeaderProps {
 
 const Header = (props: HeaderProps) => {
   const { onDrawerToggle } = props;
+  const navigate = useNavigate();
 
   return (
     <React.Fragment>
@@ -113,7 +115,7 @@ const Header = (props: HeaderProps) => {
       >
         <Tabs value={0} textColor="inherit">
           <Tab label="Users" />
-          <Tab label="Sign-in method" />
+          <Tab onClick={() => navigate("auth/register")} label="Sign-in method" />
           <Tab label="Templates" />
           <Tab label="Usage" />
         </Tabs>
