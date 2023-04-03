@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Autentication from "./components/Authentication/Autentication";
 import Database from "./components/Database/Database";
 import Hosting from "./components/Hosting/Hosting";
 import Functions from "./components/Functions/Functions";
@@ -12,6 +11,8 @@ import MachineLearning from "./components/MachineLearning/MachineLearning";
 import Analytics from "./components/Analytics/Analytics";
 import Performance from "./components/Performance/Performance";
 import TestLab from "./components/TestLab/TestLab";
+import Authentication from "./components/Authentication/Authentication";
+import UserForm from "./components/Authentication/UserForm";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/auth",
-        element: <Autentication />,
+        element: <Authentication />,
       },
       {
         path: "/database",
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/testLab",
         element: <TestLab />,
+      },
+      {
+        path: "/auth/register",
+        element: <UserForm />,
       },
     ],
   },
