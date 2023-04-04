@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux';
-import { updateRegistrationData } from '../../redux/Auth/authSlice';
+import { updateRegistrationData } from '../../../redux/Auth/authSlice';
 import * as z from 'zod';
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Button, Container, Form, Input, SignIn } from './UserFormStyle';
-import { addUser } from '../../redux/Auth/userSlice';
+import { useForm } from "react-hook-form";
+import { Button, Container, Form, Input, SignIn } from './RegistrationFormStyle';
+import { addUser } from '../../../redux/Auth/userSlice';
 
 const User = z.object({
     username: 
@@ -17,8 +17,7 @@ const User = z.object({
     .min(5, { message: "L'email deve contenere un minimo di 5 caratteri"}),
     password: 
     z.string()
-    .min(8, "Las password deve essere lunga almeno 8 caratteri")
-    .regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])$/, { message: "La password deve contenere almeno un numero e un carattere speciale"}),
+    .regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).(8,)$/, { message: "La password deve contenere almeno un numero e un carattere speciale"}),
     confirmPassword: 
     z.string()
     .min(8, "La password deve essere lunga almeno 8 caratteri")
@@ -31,21 +30,21 @@ const User = z.object({
 
 type FormUserType = z.infer<typeof User>;
 
-interface FormData {
+interface RegistrationFormData {
   username: string,
   email: string,
   password: string,
   confirmPassword: string
 }
   
-const UserForm = () => {
+const RegistrationForm = () => {
   const dispatch = useDispatch();
   const { zodResolver } = require('@hookform/resolvers/zod');
   const { register, handleSubmit, formState: { errors } } = useForm<FormUserType>({ resolver: zodResolver(User)});
 
   const [success, setSuccess] = useState(false);
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data: RegistrationFormData) => {
     setSuccess(true);
     dispatch(updateRegistrationData(data));
     dispatch(addUser(data));
@@ -98,7 +97,7 @@ const UserForm = () => {
           <label htmlFor="password">Password:</label>
           </div>
           <Input
-          type="password"
+          type="text"
           placeholder="Your password"
           {...register("password", { required: "Campo obbligatorio"})}
           />
@@ -111,7 +110,7 @@ const UserForm = () => {
           <label htmlFor="confirmPassword">Conferma password:</label>
           </div>
           <Input
-          type="password"
+          type="text"
           placeholder="Confirm your password"
           {...register("confirmPassword", { required: "Campo obbligatorio"})}
           />
@@ -128,4 +127,4 @@ const UserForm = () => {
   )
 }
 
-export default UserForm
+export default RegistrationForm

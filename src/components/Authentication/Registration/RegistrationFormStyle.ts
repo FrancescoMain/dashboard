@@ -11,7 +11,7 @@ justify-content: center;
 
 export const Form = styled.form`
 width: 400px;
-min-height: 500px;
+min-height: 300px;
 border: 1px solid grey;
 border-radius: 10px;
 background-color: white;

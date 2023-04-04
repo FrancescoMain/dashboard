@@ -11,7 +11,8 @@ import Analytics from "./components/Analytics/Analytics";
 import Performance from "./components/Performance/Performance";
 import TestLab from "./components/TestLab/TestLab";
 import Authentication from "./components/Authentication/Authentication";
-import UserForm from "./components/Authentication/UserForm";
+import RegistrationForm from "./components/Authentication/Registration/RegistrationForm";
+import LoginForm from "./components/Authentication/Login/LoginForm";
 import Presenza from "./components/Presenza/Presenza";
 import Projects from "./components/Projects/Projects";
 import { store } from "./redux/store";
@@ -65,7 +66,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth/register",
-        element: <UserForm />,
+        element: <RegistrationForm />,
+      },
+      {
+        path: "/auth/login",
+        element: <LoginForm />,
       },
     ],
   },

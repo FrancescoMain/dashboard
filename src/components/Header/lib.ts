@@ -8,7 +8,12 @@ export const menu = [
         {
             name:"Sing-In method",
             path: "/auth/register"
-        }]
+        },
+        {
+            name:"Login",
+            path:"/auth/login"
+        }
+        ]
     },
     {
         title: "Projects",
