@@ -12,7 +12,7 @@ import Performance from "./components/Performance/Performance";
 import TestLab from "./components/TestLab/TestLab";
 import Authentication from "./components/Authentication/Authentication";
 import UserForm from "./components/Authentication/UserForm";
-import Storage from "./components/Storage/Storage";
+import Presenza from "./components/Presenza/Presenza";
 import Projects from "./components/Projects/Projects";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
@@ -40,8 +40,8 @@ const router = createBrowserRouter([
         element: <Hosting />,
       },
       {
-        path: "/storage",
-        element: <Storage />,
+        path: "/presenza",
+        element: <Presenza />,
       },
       {
         path: "/functions",

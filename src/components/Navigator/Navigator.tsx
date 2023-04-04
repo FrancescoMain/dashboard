@@ -32,7 +32,7 @@ const categories = [
         path: "/auth",
       },
       { id: "Projects", icon: <DnsRoundedIcon />, path: "/projects" },
-      { id: "Storage", icon: <PermMediaOutlinedIcon />, path: "/storage" },
+      { id: "Presenza", icon: <PermMediaOutlinedIcon />, path: "/presenza" },
       { id: "Hosting", icon: <PublicIcon />, path: "/hosting" },
       { id: "Functions", icon: <SettingsEthernetIcon />, path: "/functions" },
       {
