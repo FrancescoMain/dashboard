@@ -21,10 +21,9 @@ const lightColor = "rgba(255, 255, 255, 0.7)";
 
 interface HeaderProps {
   onDrawerToggle: () => void;
-  Title: string;
 }
 
-const Header = ({ onDrawerToggle, Title }: HeaderProps) => {
+const Header = ({ onDrawerToggle }: HeaderProps) => {
   const [tabValue, setTabValue] = useState(0);
   const navigate = useNavigate();
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {

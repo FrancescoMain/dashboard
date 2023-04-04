@@ -8,8 +8,10 @@ import Link from "@mui/material/Link";
 import Navigator from "./components/Navigator/Navigator";
 import Header from "./components/Header/Header";
 import { Outlet } from "react-router-dom";
-import { store } from "./redux/store";
+import { store, useAppDispatch } from "./redux/store";
 import { Provider } from "react-redux";
+import { themeE } from "./defaultTheme";
+import { setTitle } from "./redux/header/headerSlice";
 
 function Copyright() {
   return (
@@ -27,9 +29,9 @@ const drawerWidth = 256;
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const isSmUp = useMediaQuery(themeE.breakpoints.up("sm"));
   const dispatch = useAppDispatch();
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(setTitle("Authentication"));
   }, [dispatch]);
 
@@ -39,7 +41,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeE}>
         <Box sx={{ display: "flex", minHeight: "100vh" }}>
           <CssBaseline />
           <Box
