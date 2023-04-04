@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Button, Container, Form, Input, SignIn } from './RegistrationFormStyle';
 import { addUser } from '../../../redux/Auth/userSlice';
 
-const User = z.object({
+const UserSchema = z.object({
     username: 
     z.string()
     .min(3, { message: "L'username deve contenere un minimo di 3 caratteri" })
@@ -17,7 +17,8 @@ const User = z.object({
     .min(5, { message: "L'email deve contenere un minimo di 5 caratteri"}),
     password: 
     z.string()
-    .regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).(8,)$/, { message: "La password deve contenere almeno un numero e un carattere speciale"}),
+    .min(8, "La password deve essere lunga almeno 8 caratteri")
+    .regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])$/, { message: "La password deve contenere almeno un numero e un carattere speciale"}),
     confirmPassword: 
     z.string()
     .min(8, "La password deve essere lunga almeno 8 caratteri")
@@ -28,7 +29,7 @@ const User = z.object({
     path: ["confirmPassword"]
   });
 
-type FormUserType = z.infer<typeof User>;
+type FormUserType = z.infer<typeof UserSchema>;
 
 interface RegistrationFormData {
   username: string,
@@ -40,7 +41,7 @@ interface RegistrationFormData {
 const RegistrationForm = () => {
   const dispatch = useDispatch();
   const { zodResolver } = require('@hookform/resolvers/zod');
-  const { register, handleSubmit, formState: { errors } } = useForm<FormUserType>({ resolver: zodResolver(User)});
+  const { register, handleSubmit, formState: { errors } } = useForm<FormUserType>({ resolver: zodResolver(UserSchema)});
 
   const [success, setSuccess] = useState(false);
 
@@ -97,7 +98,7 @@ const RegistrationForm = () => {
           <label htmlFor="password">Password:</label>
           </div>
           <Input
-          type="text"
+          type="password"
           placeholder="Your password"
           {...register("password", { required: "Campo obbligatorio"})}
           />
@@ -110,7 +111,7 @@ const RegistrationForm = () => {
           <label htmlFor="confirmPassword">Conferma password:</label>
           </div>
           <Input
-          type="text"
+          type="password"
           placeholder="Confirm your password"
           {...register("confirmPassword", { required: "Campo obbligatorio"})}
           />

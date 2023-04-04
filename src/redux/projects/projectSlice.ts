@@ -11,6 +11,4 @@ export const ProjectSlice = createSlice({
   },
 });
 
-export const {addToProject
- 
-} = ProjectSlice.actions;
+export const {addToProject} = ProjectSlice.actions;

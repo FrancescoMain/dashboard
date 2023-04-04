@@ -17,7 +17,7 @@ import Presenza from "./components/Presenza/Presenza";
 import Projects from "./components/Projects/Projects";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
-import AddProject from "./components/Projects/Pages/AddProject";
+import AddProjectForm from "./components/Projects/Pages/AddProjectForm";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/projects/add",
-        element: <AddProject />,
+        element: <AddProjectForm />,
       },
       {
         path: "/hosting",

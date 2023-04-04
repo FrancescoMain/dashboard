@@ -6,7 +6,7 @@ export const menu = [
             path: "/auth"
         }, 
         {
-            name:"Sing-In method",
+            name:"Sign-Up method",
             path: "/auth/register"
         },
         {
