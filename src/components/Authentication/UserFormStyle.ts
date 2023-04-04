@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from "styled-components"
+
 
 export const Container = styled.div`
 max-width: 70%;
@@ -27,6 +28,7 @@ border: 1px solid grey;
 border-radius: 10px;
 background-color: #eaeff1;
 padding: .5rem 1rem;
+margin-top: .5rem;
 `
 
 export const Button = styled.button`
