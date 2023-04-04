@@ -15,9 +15,14 @@ const User = z.object({
     z.string()
     .email({ message: "Inserire una email valida"})
     .min(5, { message: "L'email deve contenere un minimo di 5 caratteri"}),
-    password: z.string()
-    .regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$/, { message: "La password deve contenere almeno un numero e un carattere speciale e dev'essere lunga almeno 8 caratteri"}),
-    confirmPassword: z.string().regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$/, { message: "La password deve contenere almeno un numero e un carattere speciale e dev'essere lunga almeno 8 caratteri" }),
+    password: 
+    z.string()
+    .min(8, "Las password deve essere lunga almeno 8 caratteri")
+    .regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])$/, { message: "La password deve contenere almeno un numero e un carattere speciale"}),
+    confirmPassword: 
+    z.string()
+    .min(8, "La password deve essere lunga almeno 8 caratteri")
+    .regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])$/, { message: "La password deve contenere almeno un numero e un carattere speciale" })
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Le password non coincidono",

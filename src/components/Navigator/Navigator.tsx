@@ -19,6 +19,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PhonelinkSetupIcon from "@mui/icons-material/PhonelinkSetup";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setTitle } from "../../redux/header/headerSlice";
+import { useAppDispatch } from "../../redux/store";
 
 const categories = [
   {
@@ -29,7 +31,7 @@ const categories = [
         icon: <PeopleIcon />,
         path: "/auth",
       },
-      { id: "Database", icon: <DnsRoundedIcon />, path: "/database" },
+      { id: "Projects", icon: <DnsRoundedIcon />, path: "/projects" },
       { id: "Storage", icon: <PermMediaOutlinedIcon />, path: "/storage" },
       { id: "Hosting", icon: <PublicIcon />, path: "/hosting" },
       { id: "Functions", icon: <SettingsEthernetIcon />, path: "/functions" },
@@ -67,9 +69,11 @@ const itemCategory = {
 const Navigator = (props: DrawerProps) => {
   const [activeItem, setActiveItem] = useState("");
   const { ...other } = props;
+  const dispatch = useAppDispatch();
 
   const handleActive = (id: string) => {
     setActiveItem(id);
+    dispatch(setTitle(id));
   };
 
   const navigate = useNavigate();

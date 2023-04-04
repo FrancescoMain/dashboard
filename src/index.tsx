@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Database from "./components/Database/Database";
 import Hosting from "./components/Hosting/Hosting";
 import Functions from "./components/Functions/Functions";
 import MachineLearning from "./components/MachineLearning/MachineLearning";
@@ -14,6 +13,9 @@ import TestLab from "./components/TestLab/TestLab";
 import Authentication from "./components/Authentication/Authentication";
 import UserForm from "./components/Authentication/UserForm";
 import Storage from "./components/Storage/Storage";
+import Projects from "./components/Projects/Projects";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +27,8 @@ const router = createBrowserRouter([
         element: <Authentication />,
       },
       {
-        path: "/database",
-        element: <Database />,
+        path: "/projects",
+        element: <Projects />,
       },
       {
         path: "/hosting",
@@ -69,7 +71,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
