@@ -1,7 +1,10 @@
-import React from 'react'
-import { z } from "zod";
+import React, {useState} from 'react'
+import { useDispatch } from 'react-redux';
+import { updateRegistrationData } from '../../redux/Auth/authSlice';
+import * as z from 'zod';
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Button, Container, Form, Input } from './UserFormStyle';
+import { Button, Container, Form, Input, SignIn } from './UserFormStyle';
+import { addUser } from '../../redux/Auth/userSlice';
 
 const User = z.object({
     username: 
@@ -22,19 +25,38 @@ const User = z.object({
   });
 
 type FormUserType = z.infer<typeof User>;
+
+interface FormData {
+  username: string,
+  email: string,
+  password: string,
+  confirmPassword: string
+}
   
 const UserForm = () => {
+  const dispatch = useDispatch();
   const { zodResolver } = require('@hookform/resolvers/zod');
+  const { register, handleSubmit, formState: { errors } } = useForm<FormUserType>({ resolver: zodResolver(User)});
 
-  const { register, handleSubmit, formState: { errors, isValid } } = useForm<FormUserType>({ resolver: zodResolver(User)});
-  const onSubmit: SubmitHandler<FormUserType> = (data) => {
+  const [success, setSuccess] = useState(false);
+
+    const onSubmit = (data: FormData) => {
+    setSuccess(true);
+    dispatch(updateRegistrationData(data));
+    dispatch(addUser(data));
     console.log(data);
-  }
+    }
 
   return (
     <>
-    <Container>
-    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Container>
+      {success ? (
+      <Form style={{justifyContent: 'center'}}>
+        <h1 style={{textAlign: 'center'}}>Ti sei registrato correttamente!</h1>
+        <SignIn href="#">Login</SignIn>
+      </Form>
+      ) : (
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <h2>Create a new account</h2>
         <div className='mb-1'>
           <div>
@@ -45,7 +67,7 @@ const UserForm = () => {
           type="text"
           id="username"
           placeholder="Your username"
-          {...register("username", { required: "Campo obbligatorio"})}
+          {...register("username")}
           />
           {errors.username && (
           <small className="text-danger">{errors.username.message}</small>
@@ -71,7 +93,7 @@ const UserForm = () => {
           <label htmlFor="password">Password:</label>
           </div>
           <Input
-          type="text"
+          type="password"
           placeholder="Your password"
           {...register("password", { required: "Campo obbligatorio"})}
           />
@@ -84,7 +106,7 @@ const UserForm = () => {
           <label htmlFor="confirmPassword">Conferma password:</label>
           </div>
           <Input
-          type="text"
+          type="password"
           placeholder="Confirm your password"
           {...register("confirmPassword", { required: "Campo obbligatorio"})}
           />
@@ -93,7 +115,9 @@ const UserForm = () => {
           )}{" "}
         </div>
         <Button className='mt-1' type="submit">Register</Button>
-    </Form>
+      </Form>
+        )
+      }
     </Container>
     </>
   )
