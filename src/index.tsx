@@ -14,7 +14,7 @@ import Authentication from "./components/Authentication/Authentication";
 import RegistrationForm from "./components/Authentication/Registration/RegistrationForm";
 import LoginForm from "./components/Authentication/Login/LoginForm";
 import Presenza from "./components/Presenza/Presenza";
-import Projects from "./components/Projects/Projects";
+import Projects from "./components/Projects/ProjectsList";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import AddProjectForm from "./components/Projects/Pages/AddProjectForm";

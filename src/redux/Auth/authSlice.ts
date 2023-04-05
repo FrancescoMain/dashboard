@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RegistrationState, LoginState, AuthState } from "./userType";
 import { usersSlice } from "./userSlice";
+import { useAppSelector } from "../store";
 
 const initialState: AuthState = {
     registration: {
@@ -26,7 +27,9 @@ export const authSlice = createSlice({
         updateLoginData: (state, action: PayloadAction<LoginState>) => {
             state.login = action.payload;
             const { email, password } = state.login;
-            const user = state.usersSlice.users.find((user) => user.email === email && user.password === password);
+            const users = useAppSelector((state) => state.users);
+            // const user = state.usersSlice.users.find((user) => user.email === email && user.password === password);
+            const user = users.find((user) => user.email === email && user.password === password);
             if (user) {
                 state.isAuthenticated = true;
             }

@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+/* VARIABLES */
+/* Colors */
+.light-blue {
+  background-color: #eaeff1;
+}
+
 /* COMMON */
 small {
   display: block;

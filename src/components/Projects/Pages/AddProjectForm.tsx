@@ -3,8 +3,9 @@ import { z } from 'zod';
 import { useDispatch } from 'react-redux';
 import { addToProject } from '../../../redux/projects/projectSlice';
 import { Project } from '../../../redux/projects/type';
-import { Box, Button, Form, Input, Textarea } from './AddProjectFormStyle';
+import { Box, Button, Form, Input, ListBtn, Select, Textarea } from './AddProjectFormStyle';
 import { useAppSelector } from '../../../redux/store';
+import { useState } from 'react';
 
 const ProjectSchema = z.object({
   title: 
@@ -29,23 +30,30 @@ const ProjectSchema = z.object({
 const AddProjectForm = () => {
   const dispatch = useDispatch();
   const users = useAppSelector((state) => state.users);
-  console.log(users);
   const { zodResolver } = require('@hookform/resolvers/zod');
   const { register, handleSubmit, formState: { errors } } = useForm<Project>({ resolver: zodResolver(ProjectSchema)});
+  const [success, setSuccess] = useState(false);
 
   const onSubmit = (data: Project) => {
+    setSuccess(true);
     const deadlineDate = new Date(data.deadline);
     const newProject: Project = {
       ...data,
       deadline: deadlineDate
     };
-    console.log(data);
     dispatch(addToProject(newProject));
   };
 
   return (
     <Box>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      {success ? (
+        <Form style={{justifyContent: 'center'}}>
+        <h1 style={{textAlign: 'center'}}>Progetto aggiunto correttamente!</h1>
+        <ListBtn href="/projects">Vai ai progetti</ListBtn>
+      </Form>
+      ) : (
+        <Form onSubmit={handleSubmit(onSubmit)}>
+        <h2>Aggiungi un progetto</h2>
         <div className='mb-1'>
           <div>
             <label>
@@ -91,15 +99,17 @@ const AddProjectForm = () => {
               Assegnato a:
             </label>
           </div>
-          <select {...register('assigned_to')}>
+          <Select {...register('assigned_to')}>
           <option disabled selected>Seleziona</option>
             {users.map((user, index) => (
               <option key={index} value={user.username}>{user.username}</option>
             ))}
-          </select>
+            <option >Seleziona</option>
+          </Select>
         </div>
-        <Button type="submit">Invia</Button>
+        <Button className='mt-1' type="submit">Invia</Button>
       </Form>
+      )}
     </Box>
   );
 }
