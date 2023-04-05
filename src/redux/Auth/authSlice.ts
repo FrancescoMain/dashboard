@@ -25,9 +25,12 @@ export const authSlice = createSlice({
             state.registration = action.payload;
         },
         updateLoginData: (state, action: PayloadAction<LoginDispatch>) => {
-            state.login.email = action.payload.email;
-            state.login.password = action.payload.password;
-            if (action.payload.user) {
+ 
+            const {email, password} = action.payload 
+            state.login.email = email;
+            state.login.password = password;  
+                                
+            if (email && password) {
                 state.isAuthenticated = true;
             }
         },
