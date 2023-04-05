@@ -8,7 +8,8 @@ export interface User {
     username: string,
     email: string,
     password: string,
-    confirmPassword: string
+    confirmPassword: string,
+    presenze?: Presenza[]
 }
 
 export interface RegistrationState {
@@ -34,5 +35,22 @@ export interface LoginState {
        email: string,
        password: string
     }
+
     
+    export interface Presenza {
+        inizio?: string
+        fine?: string
+    }
+
+    export interface PresenzaPayload {
+        presenza: {
+            inizio: string;
+            fine: string;
+        };
+        username?: string | undefined;
+        email?: string | undefined;
+        password?: string | undefined;
+        confirmPassword?: string | undefined;
+        presenze?: Presenza[] | undefined;
+    }
 
