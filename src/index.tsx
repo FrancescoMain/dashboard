@@ -15,9 +15,10 @@ import RegistrationForm from "./components/Authentication/Registration/Registrat
 import LoginForm from "./components/Authentication/Login/LoginForm";
 import Presenza from "./components/Presenza/Presenza";
 import Projects from "./components/Projects/ProjectsList";
-import { store } from "./redux/store";
+import { store, useAppSelector } from "./redux/store";
 import { Provider } from "react-redux";
 import AddProjectForm from "./components/Projects/Pages/AddProjectForm";
+import EditProjectForm from "./components/Projects/Pages/EditProjectForm";
 
 const router = createBrowserRouter([
   {
@@ -29,12 +30,24 @@ const router = createBrowserRouter([
         element: <Authentication />,
       },
       {
+        path: "/auth/register",
+        element: <RegistrationForm />,
+      },
+      {
+        path: "/auth/login",
+        element: <LoginForm />,
+      },
+      {
         path: "/projects",
         element: <Projects />,
       },
       {
         path: "/projects/add",
         element: <AddProjectForm />,
+      },
+      {
+        path: `/projects/edit/:id`,
+        element: <EditProjectForm/>
       },
       {
         path: "/hosting",
@@ -63,15 +76,7 @@ const router = createBrowserRouter([
       {
         path: "/testLab",
         element: <TestLab />,
-      },
-      {
-        path: "/auth/register",
-        element: <RegistrationForm />,
-      },
-      {
-        path: "/auth/login",
-        element: <LoginForm />,
-      },
+      }
     ],
   },
 ]);
@@ -79,6 +84,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

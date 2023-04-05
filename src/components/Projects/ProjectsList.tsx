@@ -1,11 +1,14 @@
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../redux/store";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { deleteProject } from "../../redux/projects/projectSlice";
+import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
   const dispatch = useDispatch();
   const projects = useAppSelector((state) => state.projects);
+  const navigate = useNavigate();
   console.log(projects);
 
   const handleDeleteProject = (projectId: number) => {
@@ -33,7 +36,13 @@ const Projects = () => {
                     <td>{project.deadline.toLocaleDateString()}</td>
                     <td>{project.company}</td>
                     <td>{project.assigned_to}</td>
-                    <td><DeleteIcon style={{cursor: 'pointer'}} onClick={() => handleDeleteProject(project.id)}/></td>
+                    <td>
+                      <DeleteIcon style={{cursor: 'pointer'}} onClick={() => handleDeleteProject(project.id)}/>
+                      
+                      <a onClick={() => navigate(`/projects/edit/${project.id}`)}>
+                      <EditIcon style={{cursor: 'pointer'}}/>
+                      </a>
+                    </td>
                   </tr>
                 </>
               )
