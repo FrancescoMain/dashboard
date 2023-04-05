@@ -18,18 +18,18 @@ export const ProjectSlice = createSlice({
         state.splice(projectIndex, 1);
       }
     },
-    // editProject: (state, {payload}: PayloadAction<Project>) => {
-    //   const { id, title, description, deadline, company, assigned_to } = payload;
-    //   const existingProject = state.find(project => project.id === id);
-    //   if (existingProject) {
-    //     existingProject.title = title,
-    //     existingProject.description = description,
-    //     existingProject.deadline = deadline,
-    //     existingProject.company = company,
-    //     existingProject.assigned_to = assigned_to
-    //   }
-    // }
-  },
+    editProject: (state, {payload}: PayloadAction<Project>) => {
+      const { id, title, description, deadline, company, assigned_to } = payload;
+      const existingProject = state.find(project => project.id === id);
+      if (existingProject) {
+        existingProject.title = title;
+        existingProject.description = description;
+        existingProject.deadline = deadline;
+        existingProject.company = company;
+        existingProject.assigned_to = assigned_to;
+      }
+    }
+  }
 });
 
-export const {addToProject, deleteProject} = ProjectSlice.actions;
+export const {addToProject, deleteProject, editProject} = ProjectSlice.actions;
