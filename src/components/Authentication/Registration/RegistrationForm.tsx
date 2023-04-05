@@ -27,14 +27,14 @@ const UserSchema = z
     password: z
       .string()
       .min(8, "La password deve essere lunga almeno 8 caratteri")
-      .regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])$/, {
+      .regex(/^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/, {
         message:
-          "La password deve contenere almeno un numero e un carattere speciale",
+          "La password deve contenere almeno una lettera maiuscola, un numero e un carattere speciale",
       }),
     confirmPassword: z
       .string()
-      .min(8, "La password deve essere lunga almeno 8 caratteri"),
-    // .regex(/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])$/, { message: "La password deve contenere almeno un numero e un carattere speciale" })
+      .min(8, "La password deve essere lunga almeno 8 caratteri")
+      .regex(/^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/, { message: "La password deve contenere almeno una lettera maiuscola, numero e un carattere speciale" })
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Le password non coincidono",
