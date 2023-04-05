@@ -4,6 +4,19 @@ import { Container, Top, Icon, Bot, Title, SubTitle } from "./style";
 import IosShareIcon from "@mui/icons-material/IosShare";
 
 const Storage = () => {
+  const timestamp = Date.now();
+  console.log(timestamp);
+  console.log(
+    new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    }).format(timestamp)
+  );
+
   return (
     <Container>
       <Paper sx={{ width: "550px", minHeight: "550px" }}>
