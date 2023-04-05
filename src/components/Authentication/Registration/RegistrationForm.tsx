@@ -11,6 +11,7 @@ import {
   SignIn,
 } from "./RegistrationFormStyle";
 import { addUser } from "../../../redux/Auth/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const UserSchema = z
   .object({
@@ -52,6 +53,7 @@ interface RegistrationFormData {
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { zodResolver } = require("@hookform/resolvers/zod");
   const {
     register,
@@ -76,7 +78,7 @@ const RegistrationForm = () => {
             <h1 style={{ textAlign: "center" }}>
               Ti sei registrato correttamente!
             </h1>
-            <SignIn href="#">Login</SignIn>
+            <SignIn onClick={() => navigate("/auth/login")}>Vai al login</SignIn>
           </Form>
         ) : (
           <Form onSubmit={handleSubmit(onSubmit)}>

@@ -6,6 +6,8 @@ import { Project } from '../../../redux/projects/type';
 import { Box, Button, Form, Input, ListBtn, Select, Textarea } from './AddProjectFormStyle';
 import { useAppSelector } from '../../../redux/store';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 const ProjectSchema = z.object({
   title: 
@@ -29,6 +31,7 @@ const ProjectSchema = z.object({
 
 const AddProjectForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const users = useAppSelector((state) => state.users);
   const { zodResolver } = require('@hookform/resolvers/zod');
   const { register, handleSubmit, formState: { errors } } = useForm<Project>({ resolver: zodResolver(ProjectSchema)});
@@ -49,7 +52,7 @@ const AddProjectForm = () => {
       {success ? (
         <Form style={{justifyContent: 'center'}}>
         <h1 style={{textAlign: 'center'}}>Progetto aggiunto correttamente!</h1>
-        <ListBtn href="/projects">Vai ai progetti</ListBtn>
+        <ListBtn onClick={() => navigate("/projects")}>Vai ai progetti</ListBtn>
       </Form>
       ) : (
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -99,7 +102,7 @@ const AddProjectForm = () => {
               Assegnato a:
             </label>
           </div>
-          <Select {...register('assigned_to')}>
+          <Select {...register('assigned_to', { required: true})}>
           <option disabled selected>Seleziona</option>
             {users.map((user, index) => (
               <option key={index} value={user.username}>{user.username}</option>

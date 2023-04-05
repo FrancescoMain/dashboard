@@ -45,4 +45,6 @@ color: #009be5;
 font-size: 1.8rem;
 text-align: center;
 width: 100%;
+text-decoration: underline;
+cursor: pointer;
 `

@@ -1,9 +1,8 @@
-import { User } from "../Auth/userType"
-
 export interface Project {
+    id: number,
     title: string,
     description: string,
     deadline: Date
     company: string,
-    assigned_to: User[]
+    assigned_to: string
 }
