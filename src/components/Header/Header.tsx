@@ -14,8 +14,10 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { menu } from "./lib";
+import { useDispatch } from "react-redux";
+import { setTab } from "../../redux/header/headerSlice";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -24,10 +26,10 @@ interface HeaderProps {
 }
 
 const Header = ({ onDrawerToggle }: HeaderProps) => {
-  const [tabValue, setTabValue] = useState(0);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
+    dispatch(setTab(newValue));
   };
   const header = useAppSelector((state) => state.header);
 
@@ -119,7 +121,11 @@ const Header = ({ onDrawerToggle }: HeaderProps) => {
         elevation={0}
         sx={{ zIndex: 0 }}
       >
-        <Tabs value={tabValue} onChange={handleTabChange} textColor="inherit">
+        <Tabs
+          value={header.activeTab}
+          onChange={handleTabChange}
+          textColor="inherit"
+        >
           {menu.map((tab) =>
             header.title === tab.title
               ? tab.tabs.map((singleTab) => (

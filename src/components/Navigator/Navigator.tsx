@@ -19,7 +19,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PhonelinkSetupIcon from "@mui/icons-material/PhonelinkSetup";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setTitle } from "../../redux/header/headerSlice";
+import { setTab, setTitle } from "../../redux/header/headerSlice";
 import { useAppDispatch } from "../../redux/store";
 
 const categories = [
@@ -74,6 +74,7 @@ const Navigator = (props: DrawerProps) => {
   const handleActive = (id: string) => {
     setActiveItem(id);
     dispatch(setTitle(id));
+    dispatch(setTab(0));
   };
 
   const navigate = useNavigate();
