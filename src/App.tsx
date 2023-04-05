@@ -11,7 +11,7 @@ import { Outlet } from "react-router-dom";
 import { store, useAppDispatch } from "./redux/store";
 import { Provider } from "react-redux";
 import { themeE } from "./defaultTheme";
-import { setTitle } from "./redux/header/headerSlice";
+import { setTab, setTitle } from "./redux/header/headerSlice";
 
 function Copyright() {
   return (
@@ -33,6 +33,7 @@ function App() {
   const dispatch = useAppDispatch();
   React.useEffect(() => {
     dispatch(setTitle("Authentication"));
+    dispatch(setTab(0));
   }, [dispatch]);
 
   const handleDrawerToggle = () => {
