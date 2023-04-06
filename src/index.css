@@ -28,6 +28,14 @@ a {
   color: unset;
 }
 
+li {
+  list-style-type: none;
+}
+
+ul {
+  padding: 0;
+}
+
 .d-flex {
   display: flex;
 }

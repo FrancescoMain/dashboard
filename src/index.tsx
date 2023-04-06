@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       },
       {
         path: `/projects/details/:id`,
-        element: <ShowProjectPage project={project}/>
+        element: <ShowProjectPage/>
       },
       {
         path: "/hosting",
