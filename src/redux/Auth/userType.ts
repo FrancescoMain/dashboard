@@ -9,7 +9,7 @@ export interface User {
     email: string,
     password: string,
     confirmPassword: string,
-    presenze?: Presenza[]
+    presenze?:  Presenza[]
 }
 
 export interface RegistrationState {
@@ -17,6 +17,7 @@ export interface RegistrationState {
     email: string,
     password: string,
     confirmPassword: string 
+    presenze?: Presenza[]
 }
 
 export interface LoginDispatch { 
@@ -47,10 +48,7 @@ export interface LoginState {
             inizio: string;
             fine: string;
         };
-        username?: string | undefined;
-        email?: string | undefined;
-        password?: string | undefined;
-        confirmPassword?: string | undefined;
-        presenze?: Presenza[] | undefined;
+        email: string;
+        password: string;
     }
 

@@ -12,6 +12,8 @@ import { store, useAppDispatch } from "./redux/store";
 import { Provider } from "react-redux";
 import { themeE } from "./defaultTheme";
 import { setTab, setTitle } from "./redux/header/headerSlice";
+import { updateRegistrationData } from "./redux/Auth/authSlice";
+import { addUser } from "./redux/Auth/userSlice";
 
 function Copyright() {
   return (
@@ -34,6 +36,14 @@ function App() {
   React.useEffect(() => {
     dispatch(setTitle("Authentication"));
     dispatch(setTab(0));
+    const data = {
+      username: "admin",
+      email: "admin@admin.it",
+      password: "code",
+      confirmPassword: "code",
+    };
+    dispatch(updateRegistrationData(data));
+    dispatch(addUser(data));
   }, [dispatch]);
 
   const handleDrawerToggle = () => {

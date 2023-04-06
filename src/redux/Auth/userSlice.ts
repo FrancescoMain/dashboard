@@ -10,7 +10,12 @@ export const usersSlice = createSlice({
         },
         addPresenza: (state, action: PayloadAction<PresenzaPayload>) => {
             const user = state.find((user) => user.email === action.payload.email)
-            user?.presenze?.push(action.payload.presenza);
+            console.log(user);
+            if (user) {
+                user.presenze = user.presenze || []; // initialize presenze array if it doesn't exist
+                user.presenze.push(action.payload.presenza); // add new presence object to array
+              }  
+           
         }
     }
 })

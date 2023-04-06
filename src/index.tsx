@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: `/projects/edit/:id`,
-        element: <EditProjectForm/>
+        element: <EditProjectForm />,
       },
       {
         path: "/hosting",
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
       {
         path: "/testLab",
         element: <TestLab />,
-      }
+      },
     ],
   },
 ]);
@@ -86,11 +86,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
