@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Modal = styled.div`
 background-color: white;
+text-align: start;
 width: 500px;
 min-height: 100px;
 position: absolute;
@@ -20,4 +21,9 @@ border-bottom: 1px solid lightgrey;
 export const ModalBox = styled.div`
 padding: 1rem;
 font-size: .9rem;
+`
+
+export const DeleteBtn = styled.button`
+background-color: white;
+border: none;
 `

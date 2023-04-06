@@ -14,11 +14,12 @@ import Authentication from "./components/Authentication/Authentication";
 import RegistrationForm from "./components/Authentication/Registration/RegistrationForm";
 import LoginForm from "./components/Authentication/Login/LoginForm";
 import Presenza from "./components/Presenza/Presenza";
-import Projects from "./components/Projects/ProjectsList";
+import Projects from "./components/Projects/Pages/index/ProjectsList";
 import { store, useAppSelector } from "./redux/store";
 import { Provider } from "react-redux";
-import AddProjectForm from "./components/Projects/Pages/AddProjectForm";
-import EditProjectForm from "./components/Projects/Pages/EditProjectForm";
+import AddProjectForm from "./components/Projects/Pages/create/AddProjectForm";
+import EditProjectForm from "./components/Projects/Pages/edit/EditProjectForm";
+import ShowProjectPage from "./components/Projects/Pages/show/ShowProjectPage";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: `/projects/edit/:id`,
         element: <EditProjectForm/>
+      },
+      {
+        path: `/projects/details/:id`,
+        element: <ShowProjectPage project={project}/>
       },
       {
         path: "/hosting",
