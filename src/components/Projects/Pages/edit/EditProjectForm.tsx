@@ -34,7 +34,7 @@ const EditProjectForm = () => {
   const navigate = useNavigate();
   const params = useParams();
   const users = useAppSelector((state) => state.users);
-  const projects = useAppSelector((state) => state.projects);
+  const projects = useAppSelector((state) => state.projects.projects);
   const { zodResolver } = require('@hookform/resolvers/zod');
   const { register, handleSubmit, formState: { errors } } = useForm<Project>({ resolver: zodResolver(ProjectSchema)});
   const [success, setSuccess] = useState(false);

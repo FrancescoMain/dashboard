@@ -4,5 +4,10 @@ export interface Project {
     description: string,
     deadline: Date,
     company: string,
-    assigned_to: string
+    assigned_to: string,
 }
+
+export interface ProjectsState {
+    projects: Project[],
+    searchQuery: string;
+  }

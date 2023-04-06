@@ -3,20 +3,29 @@ import { useAppSelector } from "../../../../redux/store";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { deleteProject } from "../../../../redux/projects/projectSlice";
+import SearchIcon from '@mui/icons-material/Search';
+import { deleteProject, setSearchQuery } from "../../../../redux/projects/projectSlice";
 import { useNavigate } from "react-router-dom";
-import { DeleteBtn, Modal, ModalBody, ModalBox } from "./ProjectsListStyle";
+import { Container, DeleteBtn, Modal, ModalBody, ModalBox, SearchInput } from "./ProjectsListStyle";
 import { useState } from "react";
+import { Project } from "../../../../redux/projects/type";
 
 const Projects = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const projects = useAppSelector((state) => state.projects);
+  const projects = useAppSelector((state) => state.projects.projects);
+  const searchQuery = useAppSelector((state) => state.projects.searchQuery);
   const handleDeleteProject = (projectId: number) => {
     dispatch(deleteProject(projectId));
     // setIsDeleteModalOpen(false);
   }
-  
+
+  const handleSearchProject = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchQuery(event.target.value));
+  }
+
+  const filteredProjects = projects.filter((project) => project.title.toLowerCase().includes(searchQuery.toLowerCase()));
+ 
   // const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   // const openDeleteModal = () => {
   //   setIsDeleteModalOpen(true);
@@ -40,7 +49,11 @@ const Projects = () => {
   // };
   
   return (
-    <>
+    <Container>
+      <form className="mb-2 d-flex">
+        <SearchInput type="text" name="" id="" placeholder="Cerca.." onChange={handleSearchProject}/>
+        <SearchIcon/>
+      </form>
       <div className="table-wrapper">
         <table className="fl-table">
           <thead>
@@ -53,7 +66,7 @@ const Projects = () => {
             </tr>
           </thead>
           <tbody>
-              {projects.map((project) => {
+              {filteredProjects.map((project) => {
                 return (
                   <>
                     <tr>
@@ -90,7 +103,7 @@ const Projects = () => {
           </tbody>
         </table>
       </div>
-    </>
+    </Container>
   );
 };
 

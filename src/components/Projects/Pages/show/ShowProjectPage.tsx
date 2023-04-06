@@ -6,7 +6,7 @@ import { useAppSelector } from '../../../../redux/store'
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const ShowProjectPage = () => {
-  const projects = useAppSelector((state) => state.projects);
+  const projects = useAppSelector((state) => state.projects.projects);
   const params = useParams();
   const projectIndex = Number(params.id) - 1;
 
