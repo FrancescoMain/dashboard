@@ -2,6 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, {AxiosError} from 'axios';
 import { Employee, EmployeesState } from './type';
 import { store } from '../store';
+import { Project } from '../projects/type';
 
 const API_URL = 'https://jsonplaceholder.typicode.com/users';
 
@@ -20,8 +21,13 @@ const employeesSlice = createSlice({
     name: 'employees',
     initialState,
     reducers: {
-        addProjectsToEmployees: (state, action) => {
-            
+        addProjectsToEmployees: (state, {payload}: PayloadAction<Project>) => {
+            const employeeIndex = state.employees.findIndex(employee => employee.id === payload.id)
+            const newProjectAssigned = {
+                ...payload,
+                id: state.employees[employeeIndex].projects_assigned.length > 0 ? Math.max(...state.employees[employeeIndex].projects_assigned.map((project) => project.id)) + 1 : 1
+            }
+            state.employees[employeeIndex].projects_assigned.push(newProjectAssigned);
         }
     },
     extraReducers(builder) {
@@ -51,3 +57,5 @@ export type RootState = ReturnType<typeof store.getState>
 export const getAllEmployees = (state: RootState) => state.employees.employees;
 export const getEmployeesStatus = (state: RootState) => state.employees.status
 export const getEmployeeError = (state: RootState) => state.employees.error;
+
+export const {addProjectsToEmployees} = employeesSlice.actions;

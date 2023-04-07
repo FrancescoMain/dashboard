@@ -1,26 +1,30 @@
 import React, {useState} from 'react'
 import { useAppSelector } from '../../redux/store'
-import { getAllEmployees } from '../../redux/employees/employeeSlice'
+import { addProjectsToEmployees, getAllEmployees } from '../../redux/employees/employeeSlice'
 import { useParams } from 'react-router-dom';
 import { Box, DetailsAvatar, DetailsContainer, DetailsHeader, DetailsList, DetailsName, ProjectsContainer, ProjectBox } from './ShowEmployeePageStyle';
 import { generateRole } from '../../utils/generateRole';
 import { roles } from '../../redux/employees/type';
 import { generateRandomColor } from '../../utils/randomColor';
 import { getAllProjects } from '../../redux/projects/projectSlice';
+import { useDispatch } from 'react-redux';
+import { Project } from '../../redux/projects/type';
 
 const ShowEmployeePage = () => {
+  const dispatch = useDispatch();
   const employees = useAppSelector(getAllEmployees);
   const projects = useAppSelector(getAllProjects);
   const params = useParams();
   const employeeIndex = Number(params.id) - 1;
   
-  const [widgets, setWidgets] = useState<string[]>([...employees[employeeIndex].projects_assigned.map((project) => project.title)]);
+  const [widgets, setWidgets] = useState<string[]>([...employees[employeeIndex].projects_assigned?.map((project) => project.title)]);
   const handleOnDrag = (e: React.DragEvent, widgetType:string) => {
     e.dataTransfer.setData("widgetType", widgetType);
   }
-  const handleOnDrop = (e: React.DragEvent) => {
+  const handleOnDrop = (e: React.DragEvent, projects: Project[]) => {
     const widgetType = e.dataTransfer.getData("widgetType") as string;
     setWidgets([...widgets, widgetType]);
+    dispatch(addProjectsToEmployees(projects))
   }
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -68,7 +72,7 @@ const ShowEmployeePage = () => {
         <div 
         style={{width: '60%', border: '1px solid grey', padding: '.5rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}
         onDragOver={handleDragOver}
-        onDrop={handleOnDrop}
+        onDrop={(e) => handleOnDrop(e, projects)}
         >
         {widgets.map((widget, index) => (
           <>
