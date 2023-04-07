@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Hosting from "./components/Hosting/Hosting";
 import Functions from "./components/Functions/Functions";
 import MachineLearning from "./components/MachineLearning/MachineLearning";
 import Analytics from "./components/Analytics/Analytics";
@@ -20,6 +19,8 @@ import { Provider } from "react-redux";
 import AddProjectForm from "./components/Projects/Pages/create/AddProjectForm";
 import EditProjectForm from "./components/Projects/Pages/edit/EditProjectForm";
 import ShowProjectPage from "./components/Projects/Pages/show/ShowProjectPage";
+import EmployeesList from "./components/Employees/EmployeesList";
+import ShowEmployeePage from "./components/Employees/ShowEmployeePage";
 
 const router = createBrowserRouter([
   {
@@ -55,12 +56,16 @@ const router = createBrowserRouter([
         element: <ShowProjectPage/>
       },
       {
-        path: "/hosting",
-        element: <Hosting />,
-      },
-      {
         path: "/presenza",
         element: <Presenza />,
+      },
+      {
+        path: "/employees",
+        element: <EmployeesList />,
+      },
+      {
+        path: "/employees/details/:id",
+        element: <ShowEmployeePage />,
       },
       {
         path: "/functions",

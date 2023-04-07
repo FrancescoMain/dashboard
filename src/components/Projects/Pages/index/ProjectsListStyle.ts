@@ -41,3 +41,10 @@ width: 300px;
 border-bottom: 1px solid grey;
 font-size: 1rem;
 `
+
+export const ProjectsNotFound = styled.h2`
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -10%);
+`

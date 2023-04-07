@@ -36,6 +36,13 @@ export const menu = [
             name: "Lista Presenza",
             path: "/presenza/lista"
         }]
+    },
+    {
+        title: 'Employees',
+        tabs:[{
+            name: 'Employees',
+            path: '/employees'
+        }]
     }    
 ]
    

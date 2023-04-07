@@ -6,7 +6,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import SearchIcon from '@mui/icons-material/Search';
 import { deleteProject, setSearchQuery } from "../../../../redux/projects/projectSlice";
 import { useNavigate } from "react-router-dom";
-import { Container, DeleteBtn, Modal, ModalBody, ModalBox, SearchInput } from "./ProjectsListStyle";
+import { Container, DeleteBtn, Modal, ModalBody, ModalBox, ProjectsNotFound, SearchInput } from "./ProjectsListStyle";
 import { useState } from "react";
 import { Project } from "../../../../redux/projects/type";
 
@@ -65,8 +65,8 @@ const Projects = () => {
                 <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-              {filteredProjects.map((project) => {
+          <tbody style={{position: 'relative'}}>
+              {filteredProjects.length > 0 ? filteredProjects.map((project) => {
                 return (
                   <>
                     <tr>
@@ -99,7 +99,9 @@ const Projects = () => {
                     </tr>
                   </>
                 )
-              })}
+              }) : (
+                <ProjectsNotFound>Nessun progetto corrisponde alla ricerca :(</ProjectsNotFound>
+              )}
           </tbody>
         </table>
       </div>

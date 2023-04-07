@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Project, ProjectsState } from "./type";
+import { store } from "../store";
 
 
 const initialState: ProjectsState = {
@@ -40,5 +41,8 @@ export const ProjectSlice = createSlice({
     },
   }
 });
+
+export type RootState = ReturnType<typeof store.getState>
+export const getAllProjects = (state: RootState) => state.projects.projects;
 
 export const {addToProject, deleteProject, editProject, setSearchQuery} = ProjectSlice.actions;

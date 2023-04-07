@@ -17,6 +17,7 @@ import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputCompone
 import TimerIcon from "@mui/icons-material/Timer";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PhonelinkSetupIcon from "@mui/icons-material/PhonelinkSetup";
+import HailIcon from '@mui/icons-material/Hail';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setTab, setTitle } from "../../redux/header/headerSlice";
@@ -33,7 +34,7 @@ const categories = [
       },
       { id: "Projects", icon: <DnsRoundedIcon />, path: "/projects" },
       { id: "Presenza", icon: <PermMediaOutlinedIcon />, path: "/presenza" },
-      { id: "Hosting", icon: <PublicIcon />, path: "/hosting" },
+      { id: "Employees", icon: <HailIcon />, path: "/employees" },
       { id: "Functions", icon: <SettingsEthernetIcon />, path: "/functions" },
       {
         id: "Machine learning",
