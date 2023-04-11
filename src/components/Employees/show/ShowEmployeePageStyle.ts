@@ -37,6 +37,25 @@ top: 50px;
 right: 50px;
 `
 
+export const RemoveProject = styled.button`
+position: absolute;
+width: 12px;
+height: 12px;
+background-color: #eb2638;
+right: 5px;
+top: 5px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+cursor: pointer;
+display: none;
+&:hover {
+    color: black;
+}
+`
+
 export const ProjectBox = styled.div`
 width: 150px;
 height: 50px;
@@ -46,6 +65,10 @@ border: 1px solid grey;
 margin-bottom: .5rem;
 text-align: center;
 margin-right: .5rem;
+position: relative;
+&:hover ${RemoveProject} {
+    display: flex;
+}
 `
 
 export const ProjectsContainer = styled.div`

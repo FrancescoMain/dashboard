@@ -1,13 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../redux/store';
 import { useParams } from 'react-router-dom';
-import { addProjectsToEmployees, getAllEmployees } from '../../../redux/employees/employeeSlice';
+import { addProjectsToEmployees, getAllEmployees, removeProjectsToEmployees } from '../../../redux/employees/employeeSlice';
 import { getAllProjects } from '../../../redux/projects/projectSlice';
-import { Box, DetailsAvatar, DetailsContainer, DetailsHeader, DetailsList, DetailsName, ProjectsContainer, ProjectBox } from "./ShowEmployeePageStyle";
+import { Box, DetailsAvatar, DetailsContainer, DetailsHeader, DetailsList, DetailsName, ProjectsContainer, ProjectBox, RemoveProject } from "./ShowEmployeePageStyle";
 import { generateRole } from '../../../utils/generateRole';
 import { generateRandomColor } from '../../../utils/randomColor';
 import { PushProjectsPayload, roles } from '../../../redux/employees/type';
+import ClearIcon from '@mui/icons-material/Clear';
+import {Project} from "../../../redux/projects/type";
 
 const ShowEmployeePage = () => {
   const dispatch = useDispatch();
@@ -17,7 +19,14 @@ const ShowEmployeePage = () => {
   const employeeIndex = Number(params.id) - 1;
   let projectId = 0;
   
-  const [widgets, setWidgets] = useState<string[]>([...employees[employeeIndex].projects_assigned?.map((project) => project.title)]);
+
+  const [widgets, setWidgets] = useState<string[]>([]);
+
+  useEffect(() => {
+    const newWidgets = [...employees[employeeIndex].projects_assigned?.map((project) => project.title)];
+    setWidgets(newWidgets);
+  }, [])
+
   const handleOnDrag = (e: React.DragEvent, widgetType:string, projectIndex: number) => {
     projectId = projectIndex + 1;
     e.dataTransfer.setData("widgetType", widgetType);
@@ -25,7 +34,7 @@ const ShowEmployeePage = () => {
   const handleOnDrop = (e: React.DragEvent) => {
     const widgetType = e.dataTransfer.getData("widgetType") as string;
     const project = projects.find(project => project.id === projectId);
-    if (project && !widgets.includes(project.title)) {
+    if (project && !widgets?.includes(project.title)) {
       const PushProjectPayload : PushProjectsPayload = {employeeId: employeeIndex,
         project: project};
       dispatch(addProjectsToEmployees(PushProjectPayload))
@@ -37,6 +46,16 @@ const ShowEmployeePage = () => {
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
+  }
+
+  const handleRemoveProjectAssigned = (widget: string) => {
+    const project = projects.find(project => project.title === widget);
+    if (project) {
+      const PushProjectPayload : PushProjectsPayload = {employeeId: employeeIndex, project: project};
+      dispatch(removeProjectsToEmployees(PushProjectPayload));
+      const filteredWidgets = widgets.filter((value) => value !== widget);
+      setWidgets(filteredWidgets);
+    }
   }
 
   return (
@@ -83,11 +102,16 @@ const ShowEmployeePage = () => {
         onDrop={(e) => handleOnDrop(e)}
         >
         {widgets.map((widget, index) => (
-          <>
           <ProjectBox key={index}>
+            <RemoveProject
+            onClick={() => 
+              handleRemoveProjectAssigned(widget)
+            }
+            >
+              <ClearIcon style={{fontSize: '.8rem'}}/>
+            </RemoveProject>
             {widget}
           </ProjectBox>
-          </>
         ))}
         </div>
         <div style={{width: '50%', display: 'flex', justifyContent: 'center'}} >

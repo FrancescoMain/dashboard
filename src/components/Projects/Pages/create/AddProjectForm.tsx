@@ -39,7 +39,11 @@ const AddProjectForm = () => {
 
   const onSubmit = (data: Project) => {
     setSuccess(true);
-    const deadlineDate = new Date(data.deadline);
+    let deadlineDate = new Date(data.deadline);
+    if (deadlineDate.toString() === "Invalid Date" || data.assigned_to === Array("Seleziona")) {
+      deadlineDate = new Date();
+      data.assigned_to = [];
+    }
     const newProject: Project = {
       ...data,
       deadline: deadlineDate,
@@ -107,7 +111,6 @@ const AddProjectForm = () => {
             {users.map((user, index) => (
               <option key={index} value={user.username}>{user.username}</option>
             ))}
-            <option >Seleziona</option>
           </Select>
         </div>
         <Button className='mt-1' type="submit">Invia</Button>

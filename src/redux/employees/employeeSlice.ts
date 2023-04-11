@@ -31,15 +31,15 @@ const employeesSlice = createSlice({
             const employee = state.employees[payload.employeeId];
             const newProjectAssigned = {
                 ...payload.project,
-                assigned_to: [employee.name]
+                assigned_to: payload.project.assigned_to.concat([employee.name])
             };
             employee?.projects_assigned.push(newProjectAssigned)
-            const projects = UseProjects();
-            // const projectIndex = state.projects.findIndex(project => project.id === payload.project.id);
-            // if (projectIndex !== -1) {
-            //     projects[projectIndex].assigned_to = [employee.name];
-            // }
-            // (state as WritableDraft<EmployeesState>).projects = projects;
+        },
+        removeProjectsToEmployees: (state, {payload}:PayloadAction<PushProjectsPayload>) => {
+            const employee = state.employees[payload.employeeId];
+            if (payload.project.id !== -1) {
+                employee.projects_assigned = employee.projects_assigned.filter(project => project.id !== payload.project.id);
+            }
         }
     },
     extraReducers(builder) {
@@ -70,4 +70,4 @@ export const getAllEmployees = (state: RootState) => state.employees.employees;
 export const getEmployeesStatus = (state: RootState) => state.employees.status
 export const getEmployeeError = (state: RootState) => state.employees.error;
 
-export const {addProjectsToEmployees} = employeesSlice.actions;
+export const {addProjectsToEmployees, removeProjectsToEmployees} = employeesSlice.actions;

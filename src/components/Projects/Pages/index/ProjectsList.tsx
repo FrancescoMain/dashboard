@@ -7,8 +7,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { deleteProject, setSearchQuery } from "../../../../redux/projects/projectSlice";
 import { useNavigate } from "react-router-dom";
 import { Container, DeleteBtn, Modal, ModalBody, ModalBox, ProjectsNotFound, SearchInput } from "./ProjectsListStyle";
-import { useState } from "react";
-import { Project } from "../../../../redux/projects/type";
 
 const Projects = () => {
   const dispatch = useDispatch();
@@ -24,7 +22,12 @@ const Projects = () => {
     dispatch(setSearchQuery(event.target.value));
   }
 
-  const filteredProjects = projects.filter((project) => project.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredProjects = projects.filter((project) => {
+    const titleMatch = project.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const companyMatch = project.company.toLowerCase().includes(searchQuery.toLowerCase());
+    const assignedMatch = project.assigned_to.includes(searchQuery.toLowerCase());
+    return titleMatch || companyMatch || assignedMatch;
+  });
  
   // const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   // const openDeleteModal = () => {
@@ -73,7 +76,7 @@ const Projects = () => {
                       <td>{project.title}</td>
                       <td>{project.deadline.toLocaleDateString()}</td>
                       <td>{project.company}</td>
-                      <td>{project.assigned_to}</td>
+                      <td>{!project.assigned_to || "Seleziona" ? "Nessuno" : project.assigned_to}</td>
                       <td>
                         <a onClick={() => navigate(`/projects/edit/${project.id}`)}>
                         <EditIcon style={{cursor: 'pointer'}}/>
