@@ -1,9 +1,9 @@
 import React from 'react'
-import { EmployeeAvatar, EmployeeCard } from './EmployeesStyle'
-import { Employee, roles } from '../../redux/employees/type'
-import { generateRandomColor } from '../../utils/randomColor'
+import { EmployeeAvatar, EmployeeCard } from "./EmployeesStyle";
+import { Employee, roles } from '../../../redux/employees/type'
+import { generateRandomColor } from '../../../utils/randomColor'
 import { useNavigate } from 'react-router-dom'
-import { generateRole } from '../../utils/generateRole'
+import { generateRole } from '../../../utils/generateRole'
 
 interface Props {
   employee: Employee

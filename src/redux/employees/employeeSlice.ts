@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, {AxiosError} from 'axios';
-import { Employee, EmployeesState } from './type';
+import { Employee, EmployeesState, PushProjectsPayload } from './type';
 import { store } from '../store';
 import { Project } from '../projects/type';
 
@@ -21,13 +21,10 @@ const employeesSlice = createSlice({
     name: 'employees',
     initialState,
     reducers: {
-        addProjectsToEmployees: (state, {payload}: PayloadAction<Project>) => {
-            const employeeIndex = state.employees.findIndex(employee => employee.id === payload.id)
-            const newProjectAssigned = {
-                ...payload,
-                id: state.employees[employeeIndex].projects_assigned.length > 0 ? Math.max(...state.employees[employeeIndex].projects_assigned.map((project) => project.id)) + 1 : 1
-            }
-            state.employees[employeeIndex].projects_assigned.push(newProjectAssigned);
+        addProjectsToEmployees: (state, {payload}: PayloadAction<PushProjectsPayload>) => {
+            const employee = state.employees[payload.employeeId];
+            const newProjectAssigned = {...payload.Projects};
+            employee?.projects_assigned.push(newProjectAssigned)
         }
     },
     extraReducers(builder) {

@@ -19,8 +19,8 @@ import { Provider } from "react-redux";
 import AddProjectForm from "./components/Projects/Pages/create/AddProjectForm";
 import EditProjectForm from "./components/Projects/Pages/edit/EditProjectForm";
 import ShowProjectPage from "./components/Projects/Pages/show/ShowProjectPage";
-import EmployeesList from "./components/Employees/EmployeesList";
-import ShowEmployeePage from "./components/Employees/ShowEmployeePage";
+import EmployeesList from "./components/Employees/index/EmployeesList";
+import ShowEmployeePage from "./components/Employees/show/ShowEmployeePage";
 
 const router = createBrowserRouter([
   {

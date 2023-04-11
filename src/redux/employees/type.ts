@@ -12,8 +12,8 @@ export interface Employee {
         name: string,
         catchPhrase: string,
         bs: string
-    }
-    projects_assigned: Project[]
+    },
+    projects_assigned: Project[],
     role: string
 }
 
@@ -32,6 +32,11 @@ export interface EmployeesState {
     employees: Employee[],
     status: string,
     error: null
+}
+
+export interface PushProjectsPayload {
+    employeeId: number,
+    Projects: Project
 }
 
 export const roles = ["Front-end developer", "Back-end Developer", "Full-stack Developer", "Project Manager", "Project Administrator", "CEO", "CO-Founder", "Flutter Dev", "Blockchain Dev", "Consulente HR", "Editor"];

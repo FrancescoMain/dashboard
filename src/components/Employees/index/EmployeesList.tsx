@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
 import { Col, Container, Row } from './EmployeesStyle'
-import EmployeeItem from './EmployeeItem'
 import {useSelector, useDispatch} from "react-redux";
-import { fetchEmployees, getAllEmployees, getEmployeeError, getEmployeesStatus } from '../../redux/employees/employeeSlice';
-import { AppDispatch } from '../../redux/store';
+import { fetchEmployees, getAllEmployees, getEmployeeError, getEmployeesStatus } from '../../../redux/employees/employeeSlice';
+import { AppDispatch } from '../../../redux/store';
+import EmployeeItem from './EmployeeItem';
 
 const EmployeesList = () => {
   const dispatch = useDispatch<AppDispatch>();

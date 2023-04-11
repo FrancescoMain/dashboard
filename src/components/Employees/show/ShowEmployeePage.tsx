@@ -1,14 +1,13 @@
 import React, {useState} from 'react'
-import { useAppSelector } from '../../redux/store'
-import { addProjectsToEmployees, getAllEmployees } from '../../redux/employees/employeeSlice'
-import { useParams } from 'react-router-dom';
-import { Box, DetailsAvatar, DetailsContainer, DetailsHeader, DetailsList, DetailsName, ProjectsContainer, ProjectBox } from './ShowEmployeePageStyle';
-import { generateRole } from '../../utils/generateRole';
-import { roles } from '../../redux/employees/type';
-import { generateRandomColor } from '../../utils/randomColor';
-import { getAllProjects } from '../../redux/projects/projectSlice';
 import { useDispatch } from 'react-redux';
-import { Project } from '../../redux/projects/type';
+import { useAppSelector } from '../../../redux/store';
+import { useParams } from 'react-router-dom';
+import { addProjectsToEmployees, getAllEmployees } from '../../../redux/employees/employeeSlice';
+import { getAllProjects } from '../../../redux/projects/projectSlice';
+import { Box, DetailsAvatar, DetailsContainer, DetailsHeader, DetailsList, DetailsName, ProjectsContainer, ProjectBox } from "./ShowEmployeePageStyle";
+import { generateRole } from '../../../utils/generateRole';
+import { generateRandomColor } from '../../../utils/randomColor';
+import { PushProjectsPayload, roles } from '../../../redux/employees/type';
 
 const ShowEmployeePage = () => {
   const dispatch = useDispatch();
@@ -16,15 +15,23 @@ const ShowEmployeePage = () => {
   const projects = useAppSelector(getAllProjects);
   const params = useParams();
   const employeeIndex = Number(params.id) - 1;
+  let projectId = 0;
   
   const [widgets, setWidgets] = useState<string[]>([...employees[employeeIndex].projects_assigned?.map((project) => project.title)]);
-  const handleOnDrag = (e: React.DragEvent, widgetType:string) => {
+  const handleOnDrag = (e: React.DragEvent, widgetType:string, projectIndex: number) => {
+    projectId = projectIndex + 1;
     e.dataTransfer.setData("widgetType", widgetType);
   }
-  const handleOnDrop = (e: React.DragEvent, projects: Project[]) => {
+  const handleOnDrop = (e: React.DragEvent) => {
     const widgetType = e.dataTransfer.getData("widgetType") as string;
     setWidgets([...widgets, widgetType]);
-    dispatch(addProjectsToEmployees(projects))
+    const project = projects.find(project => project.id === projectId);
+    if (project) {
+      const PushProjectPayload : PushProjectsPayload = {employeeId: employeeIndex,
+        Projects: project};
+      dispatch(addProjectsToEmployees(PushProjectPayload))
+      console.log(PushProjectPayload);
+    }
   }
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -72,7 +79,7 @@ const ShowEmployeePage = () => {
         <div 
         style={{width: '60%', border: '1px solid grey', padding: '.5rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}
         onDragOver={handleDragOver}
-        onDrop={(e) => handleOnDrop(e, projects)}
+        onDrop={(e) => handleOnDrop(e)}
         >
         {widgets.map((widget, index) => (
           <>
@@ -85,11 +92,11 @@ const ShowEmployeePage = () => {
         <div style={{width: '50%', display: 'flex', justifyContent: 'center'}} >
           <div>
             <h5>Trascina i progetti che vuoi assegnare:</h5>
-            {projects.length > 0 ? (projects.map((project) => (
+            {projects.length > 0 ? (projects.map((project, index) => (
               <ProjectBox
               key={project.id}
               draggable
-              onDragStart={(e) => handleOnDrag(e, project.title)}
+              onDragStart={(e) => handleOnDrag(e, project.title, index)}
               >
                 {project.title}
               </ProjectBox>
