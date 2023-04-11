@@ -24,13 +24,14 @@ const ShowEmployeePage = () => {
   }
   const handleOnDrop = (e: React.DragEvent) => {
     const widgetType = e.dataTransfer.getData("widgetType") as string;
-    setWidgets([...widgets, widgetType]);
     const project = projects.find(project => project.id === projectId);
-    if (project) {
+    if (project && !widgets.includes(project.title)) {
       const PushProjectPayload : PushProjectsPayload = {employeeId: employeeIndex,
-        Projects: project};
+        project: project};
       dispatch(addProjectsToEmployees(PushProjectPayload))
-      console.log(PushProjectPayload);
+      setWidgets([...widgets, widgetType]);
+    } else {
+      alert("Questo progetto è già presente");
     }
   }
 

@@ -1,10 +1,15 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios, {AxiosError} from 'axios';
+import axios from 'axios';
 import { Employee, EmployeesState, PushProjectsPayload } from './type';
 import { store } from '../store';
-import { Project } from '../projects/type';
+import WritableDraft from 'immer';
+import { useSelector } from 'react-redux';
+import { getAllProjects } from '../projects/projectSlice';
 
-const API_URL = 'https://jsonplaceholder.typicode.com/users';
+function UseProjects() {
+    const projects = useSelector(getAllProjects);
+    return projects
+}
 
 const initialState: EmployeesState = {
     employees: [],
@@ -12,6 +17,7 @@ const initialState: EmployeesState = {
     error: null
 }
 
+const API_URL = 'https://jsonplaceholder.typicode.com/users';
 export const fetchEmployees = createAsyncThunk('employees/fetchEmployees', async () => {
     const response = await axios.get(API_URL);
     return response.data
@@ -23,8 +29,17 @@ const employeesSlice = createSlice({
     reducers: {
         addProjectsToEmployees: (state, {payload}: PayloadAction<PushProjectsPayload>) => {
             const employee = state.employees[payload.employeeId];
-            const newProjectAssigned = {...payload.Projects};
+            const newProjectAssigned = {
+                ...payload.project,
+                assigned_to: [employee.name]
+            };
             employee?.projects_assigned.push(newProjectAssigned)
+            const projects = UseProjects();
+            // const projectIndex = state.projects.findIndex(project => project.id === payload.project.id);
+            // if (projectIndex !== -1) {
+            //     projects[projectIndex].assigned_to = [employee.name];
+            // }
+            // (state as WritableDraft<EmployeesState>).projects = projects;
         }
     },
     extraReducers(builder) {

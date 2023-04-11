@@ -4,7 +4,7 @@ export interface Project {
     description: string,
     deadline: Date,
     company: string,
-    assigned_to: string | undefined
+    assigned_to: string[]
 }
 
 export interface ProjectsState {

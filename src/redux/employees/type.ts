@@ -36,7 +36,7 @@ export interface EmployeesState {
 
 export interface PushProjectsPayload {
     employeeId: number,
-    Projects: Project
+    project: Project,
 }
 
 export const roles = ["Front-end developer", "Back-end Developer", "Full-stack Developer", "Project Manager", "Project Administrator", "CEO", "CO-Founder", "Flutter Dev", "Blockchain Dev", "Consulente HR", "Editor"];

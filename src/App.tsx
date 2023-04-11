@@ -34,6 +34,7 @@ function App() {
   React.useEffect(() => {
     dispatch(setTitle("Authentication"));
     dispatch(setTab(0));
+    
   }, [dispatch]);
 
   const handleDrawerToggle = () => {
