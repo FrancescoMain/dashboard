@@ -148,6 +148,7 @@ const EditProjectForm = () => {
           value={projectData.assigned_to}
           onChange={handleInputChange}
           >
+            <option disabled selected>Seleziona</option>
             {users.map((user, index) => (
               <option key={index} value={user.username}>{user.username}</option>
             ))}

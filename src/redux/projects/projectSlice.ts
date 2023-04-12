@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Project, ProjectsState } from "./type";
 import { store } from "../store";
+import { Employee } from "../employees/type";
 
+export interface UpdateProjectState {
+  employees: Employee[]
+  project: Project,
+  employeeId: number
+}
 
 const initialState: ProjectsState = {
   projects: [],
@@ -39,10 +45,21 @@ export const ProjectSlice = createSlice({
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
     },
+    assignEmployeeToProject: (state, {payload}: PayloadAction<UpdateProjectState>) => {
+      const employee = payload.employees[payload.employeeId];
+      state.projects[payload.project.id-1].assigned_to.push(employee.name);
+    },
+    removeEmployeeFromProject: (state, {payload}: PayloadAction<UpdateProjectState>) => {
+      const employee = payload.employees[payload.employeeId];
+      const index = state.projects[payload.project.id-1].assigned_to.findIndex(name => name === employee.name);
+      if (payload.project.id-1 !== -1) {
+        state.projects[payload.project.id-1].assigned_to.splice(index, 1);
+      }
+    }
   }
 });
 
 export type RootState = ReturnType<typeof store.getState>
 export const getAllProjects = (state: RootState) => state.projects.projects;
 
-export const {addToProject, deleteProject, editProject, setSearchQuery} = ProjectSlice.actions;
+export const {addToProject, deleteProject, editProject, setSearchQuery, assignEmployeeToProject, removeEmployeeFromProject} = ProjectSlice.actions;

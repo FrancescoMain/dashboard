@@ -40,8 +40,10 @@ const AddProjectForm = () => {
   const onSubmit = (data: Project) => {
     setSuccess(true);
     let deadlineDate = new Date(data.deadline);
-    if (deadlineDate.toString() === "Invalid Date" || data.assigned_to === Array("Seleziona")) {
+    if (deadlineDate.toString() === "Invalid Date") {
       deadlineDate = new Date();
+    }
+    if (data.assigned_to.includes("Seleziona")) {
       data.assigned_to = [];
     }
     const newProject: Project = {

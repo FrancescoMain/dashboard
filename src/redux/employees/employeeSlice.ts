@@ -1,15 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Employee, EmployeesState, PushProjectsPayload } from './type';
+import { Employee, EmployeesState, ToggleProjectsPayload } from './type';
 import { store } from '../store';
-import WritableDraft from 'immer';
-import { useSelector } from 'react-redux';
-import { getAllProjects } from '../projects/projectSlice';
-
-function UseProjects() {
-    const projects = useSelector(getAllProjects);
-    return projects
-}
 
 const initialState: EmployeesState = {
     employees: [],
@@ -27,7 +19,7 @@ const employeesSlice = createSlice({
     name: 'employees',
     initialState,
     reducers: {
-        addProjectsToEmployees: (state, {payload}: PayloadAction<PushProjectsPayload>) => {
+        addProjectsToEmployees: (state, {payload}: PayloadAction<ToggleProjectsPayload>) => {
             const employee = state.employees[payload.employeeId];
             const newProjectAssigned = {
                 ...payload.project,
@@ -35,7 +27,7 @@ const employeesSlice = createSlice({
             };
             employee?.projects_assigned.push(newProjectAssigned)
         },
-        removeProjectsToEmployees: (state, {payload}:PayloadAction<PushProjectsPayload>) => {
+        removeProjectsToEmployees: (state, {payload}:PayloadAction<ToggleProjectsPayload>) => {
             const employee = state.employees[payload.employeeId];
             if (payload.project.id !== -1) {
                 employee.projects_assigned = employee.projects_assigned.filter(project => project.id !== payload.project.id);

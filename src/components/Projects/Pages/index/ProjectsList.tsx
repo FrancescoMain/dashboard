@@ -76,7 +76,7 @@ const Projects = () => {
                       <td>{project.title}</td>
                       <td>{project.deadline.toLocaleDateString()}</td>
                       <td>{project.company}</td>
-                      <td>{!project.assigned_to || "Seleziona" ? "Nessuno" : project.assigned_to}</td>
+                      <td>{!project.assigned_to || project.assigned_to.includes("Seleziona") && "Nessuno"}</td>
                       <td>
                         <a onClick={() => navigate(`/projects/edit/${project.id}`)}>
                         <EditIcon style={{cursor: 'pointer'}}/>

@@ -3,13 +3,12 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../redux/store';
 import { useParams } from 'react-router-dom';
 import { addProjectsToEmployees, getAllEmployees, removeProjectsToEmployees } from '../../../redux/employees/employeeSlice';
-import { getAllProjects } from '../../../redux/projects/projectSlice';
+import { UpdateProjectState, assignEmployeeToProject, getAllProjects, removeEmployeeFromProject } from '../../../redux/projects/projectSlice';
 import { Box, DetailsAvatar, DetailsContainer, DetailsHeader, DetailsList, DetailsName, ProjectsContainer, ProjectBox, RemoveProject } from "./ShowEmployeePageStyle";
 import { generateRole } from '../../../utils/generateRole';
 import { generateRandomColor } from '../../../utils/randomColor';
-import { PushProjectsPayload, roles } from '../../../redux/employees/type';
+import { ToggleProjectsPayload, roles } from '../../../redux/employees/type';
 import ClearIcon from '@mui/icons-material/Clear';
-import {Project} from "../../../redux/projects/type";
 
 const ShowEmployeePage = () => {
   const dispatch = useDispatch();
@@ -35,9 +34,10 @@ const ShowEmployeePage = () => {
     const widgetType = e.dataTransfer.getData("widgetType") as string;
     const project = projects.find(project => project.id === projectId);
     if (project && !widgets?.includes(project.title)) {
-      const PushProjectPayload : PushProjectsPayload = {employeeId: employeeIndex,
-        project: project};
-      dispatch(addProjectsToEmployees(PushProjectPayload))
+      const UpdateProjectState : UpdateProjectState = {employees: employees, employeeId: employeeIndex, project: project};
+      const ToggleProjectPayload : ToggleProjectsPayload = {employeeId: employeeIndex, project: project};
+      dispatch(addProjectsToEmployees(ToggleProjectPayload));
+      dispatch(assignEmployeeToProject(UpdateProjectState));
       setWidgets([...widgets, widgetType]);
     } else {
       alert("Questo progetto è già presente");
@@ -51,8 +51,10 @@ const ShowEmployeePage = () => {
   const handleRemoveProjectAssigned = (widget: string) => {
     const project = projects.find(project => project.title === widget);
     if (project) {
-      const PushProjectPayload : PushProjectsPayload = {employeeId: employeeIndex, project: project};
-      dispatch(removeProjectsToEmployees(PushProjectPayload));
+      const ToggleProjectPayload : ToggleProjectsPayload = {employeeId: employeeIndex, project: project};
+      const UpdateProjectState : UpdateProjectState = {employees: employees, employeeId: employeeIndex, project: project};
+      dispatch(removeProjectsToEmployees(ToggleProjectPayload));
+      dispatch(removeEmployeeFromProject(UpdateProjectState));
       const filteredWidgets = widgets.filter((value) => value !== widget);
       setWidgets(filteredWidgets);
     }

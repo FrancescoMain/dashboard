@@ -34,7 +34,7 @@ export interface EmployeesState {
     error: null
 }
 
-export interface PushProjectsPayload {
+export interface ToggleProjectsPayload {
     employeeId: number,
     project: Project,
 }
