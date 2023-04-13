@@ -1,6 +1,6 @@
 # React Portal
 
-## Applicazione React CMS simil Odoo (front-end only, Redux Toolkit come state storage).
+## Applicazione React gestionale simil Odoo (front-end only, Redux Toolkit come state storage).
 
 • Routing per la navigazione tra le pagine.
 
